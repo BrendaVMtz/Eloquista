@@ -4,5 +4,8 @@ from django.http import HttpResponse
 def home(request):
     return HttpResponse("<h2>Bienvenido</h2>")
 
-def about(request):
+def acerca(request):
     return HttpResponse("<h2>Somos una aplicacion</h2>")
+
+def contacto(request):
+    return HttpResponse("<h2>Contactanos</h2>")
