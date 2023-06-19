@@ -5,14 +5,14 @@ from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
+def signup(request):
+        return render(request, 'signup.html')
+
 def seleccionPerfil(request):
         return HttpResponse("<h2>Selecciona tu perfil</h2>")
 
-def signup(request):
-        return HttpResponse("<h2>Registrarse</h2>")
-
 def login(request):
-        return HttpResponse("<h2>login</h2>")
+        return render(request, 'login.html')
 
 def profile(request,username):
         username = get_object_or_404(usuario,nombreDeUsuario=username)
