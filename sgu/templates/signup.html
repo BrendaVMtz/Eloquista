@@ -2,22 +2,21 @@
 <html>
 <head>
   <title>Registrarse - Eloquista</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+  <!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
 </head>
 <body>
 
   <main>
     <section class="signup-section">
       <h1>Registrarse</h1>
-      <form>
+      <form method="POST" >
+        {% csrf_token %}
+        {% for field in form %}
         <div>
-          <label for="username">Usuario:</label>
-          <input type="text" id="username" name="username" required>
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
         </div>
-        <div>
-          <label for="password">Contraseña:</label>
-          <input type="password" id="password" name="password" required>
-        </div>
+        {% endfor %}
         <div>
           <button type="submit">Registrarse</button>
         </div>
@@ -26,6 +25,7 @@
   </main>
 
   <footer>
+    <a href="comenzar/login/">¿Ya tienes cuenta?</a>
   </footer>
 </body>
 </html>
