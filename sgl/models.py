@@ -1,5 +1,4 @@
 from django.db import models
-from sgu.models import alumno
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -20,18 +19,18 @@ class Ejercicio(models.Model):
     respuestaCorrecta = models.CharField
 
 class progresoEjercicios(models.Model):
-    idAlumno=models.ForeignKey(alumno,on_delete=models.CASCADE)
+    #idAlumno=models.ForeignKey(alumno,on_delete=models.CASCADE)
     idEjercicio = models.ForeignKey(Ejercicio,on_delete=models.CASCADE)
     ejercicioCompleto = models.BooleanField(default=False)
-    class Meta:
-        unique_together = ('idAlumno','idEjercicio')
+    # class Meta:
+    #     unique_together = ('idAlumno','idEjercicio')
 
 class progresoLecciones(models.Model):
-    idAlumno=models.ForeignKey(alumno,on_delete=models.CASCADE)
+    #idAlumno=models.ForeignKey(alumno,on_delete=models.CASCADE)
     idLeccion= models.ForeignKey(Leccion,on_delete=models.CASCADE)
     leccionCompleta = models.BooleanField(default=False)
-    class Meta:
-        unique_together = ('idAlumno','idLeccion')
+    # class Meta:
+    #     unique_together = ('idAlumno','idLeccion')
 
 @receiver(post_save, sender=progresoEjercicios)
 def verificar_leccion_completa(sender, instance, **kwargs):

@@ -1,61 +1,20 @@
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
 
-# Create your models here.
-
-class initUser(models.Model):
-    username = models.CharField(max_length=50)
-    password1 = models.CharField(max_length=50)
-    password2 = models.CharField(max_length=50)
+class User(models.Model):
+    username = models.CharField(max_length=100,unique=True)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=100)
+    is_teacher = models.BooleanField(default=False)
+    is_parent = models.BooleanField(default=False)
 
 class Teacher(models.Model):
-    user = models.OneToOneField(initUser, on_delete=models.CASCADE, related_name='teacher')
-    # Add additional fields specific to teachers
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    intitution = models.CharField(max_length=100)
+    phoneNumber = models.CharField(max_length=100)
 
 class Parent(models.Model):
-    user = models.OneToOneField(initUser, on_delete=models.CASCADE, related_name='parent')
-    # Add additional fields specific to parents
-
-
-class usuario(models.Model):
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    nombreDeUsuario = models.CharField(max_length=50, unique=True,primary_key=True)
-    contrasena = models.CharField(max_length=50)
-
-
-class cuidador(models.Model):
-    nombreDeUsuario = models.OneToOneField(usuario,on_delete=models.CASCADE)
-    correoElectronico = models.CharField(max_length=100)
-
-class padre(cuidador):
-    calle = models.CharField(max_length=100)
-    numero = models.CharField(max_length=100)    
-    delegacion = models.CharField(max_length=100)    
-    telefono = models.PositiveIntegerField  
-
-class salud(cuidador):
-    cedula = models.CharField(max_length=100)
-    institucion = models.CharField(max_length=100)    
-    delegacion = models.CharField(max_length=100)    
-    telefono = models.PositiveIntegerField  
-
-class profesor(cuidador):
-    cedula = models.CharField(max_length=100)
-    institucion = models.CharField(max_length=100)    
-    delegacion = models.CharField(max_length=100)    
-    telefono = models.PositiveIntegerField    
-
-class alumno(models.Model):
-    #idCuidador = models.ForeignKey(cuidador,on_delete=models.CASCADE, related_name='idCuidador')
-    nombreDeUsuario = models.OneToOneField(usuario,on_delete=models.CASCADE)
-    edad = models.IntegerField(
-    validators=[
-        MinValueValidator(0, message='El valor debe ser igual o mayor a 0.'),
-        MaxValueValidator(150, message='El valor debe ser igual o menor a 150.')
-    ]
-)
-
-class alumno_cuidador(models.Model):
-    alumno = models.ForeignKey(alumno,on_delete=models.SET_NULL,null=True)
-    cuidador = models.ForeignKey(cuidador,on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    street = models.CharField(max_length=100)
+    number = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    phoneNumber = models.CharField(max_length=100)
