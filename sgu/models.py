@@ -3,6 +3,20 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
+class initUser(models.Model):
+    username = models.CharField(max_length=50)
+    password1 = models.CharField(max_length=50)
+    password2 = models.CharField(max_length=50)
+
+class Teacher(models.Model):
+    user = models.OneToOneField(initUser, on_delete=models.CASCADE, related_name='teacher')
+    # Add additional fields specific to teachers
+
+class Parent(models.Model):
+    user = models.OneToOneField(initUser, on_delete=models.CASCADE, related_name='parent')
+    # Add additional fields specific to parents
+
+
 class usuario(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)

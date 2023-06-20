@@ -18,19 +18,9 @@
           </ul>
         {% endif %}
         <form method="POST">
-          <!-- para registro de usuario -->
           {% csrf_token %}
-          <!--  -->
-          {% for field in form %}
-            <div>
-              <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-              {{ field }}
-            </div>
-          {% endfor %}
-          
-          <div>
-            <button type="submit">Registrarse</button>
-          </div>
+          {{ form.as_p }}
+          <button type="submit">Sign Up</button>
         </form>
     </section>
   </main>

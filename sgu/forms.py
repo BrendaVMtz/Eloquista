@@ -1,4 +1,20 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from .models import initUser, Teacher, Parent
+
+class TeacherSignUpForm(UserCreationForm):
+    # Add fields specific to teacher signup form
+
+    class Meta:
+        model = initUser
+        fields = ('username', 'password1', 'password2')
+
+class ParentSignUpForm(UserCreationForm):
+    # Add fields specific to parent signup form
+
+    class Meta:
+        model = initUser
+        fields = ('username', 'password1', 'password2')
 
 class RegistroUsuarioForm(forms.Form):
     nombre = forms.CharField(label='Nombre', max_length=100)

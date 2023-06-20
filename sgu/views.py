@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import usuario,cuidador,padre,profesor
 from django.shortcuts import get_object_or_404
-from .forms import RegistroUsuarioForm, registroPadre, registroProfesor
 from django.contrib import messages
+from .forms import TeacherSignUpForm, ParentSignUpForm
+from .models import initUser, Teacher, Parent
+
 
 # Create your views here.
 
@@ -15,33 +16,29 @@ from django.contrib import messages
 #array == lleno 
 # vista de usuario
 
-def signup(request):
+def teacher_signup(request):
     if request.method == 'POST':
-        form = RegistroUsuarioForm(request.POST)
+        form = TeacherSignUpForm(request.POST)
         if form.is_valid():
-            nombre_usuario = form.cleaned_data['username']
-            if usuario.objects.filter(nombreDeUsuario=nombre_usuario).exists():
-                messages.error(request, 'El nombre de usuario ya existe. Por favor, elige otro.')
-                return redirect('/comenzar/signup/')
-            else:
-                nuevo_usuario = usuario.objects.create(
-                    nombre=form.cleaned_data['nombre'],
-                    apellido=form.cleaned_data['apellido'],
-                    nombreDeUsuario=form.cleaned_data['username'],
-                    contrasena=form.cleaned_data['password']
-                )
-                #pero todos los usuarios nuevos son cuidadores, luego cuidador se divide en padre o profesor
-                cuidador.objects.create(
-                    nombreDeUsuario=nuevo_usuario,
-                    correoElectronico=form.cleaned_data['correo']
-                )
-                return render(request, 'signup2.html', {'registration_successful': True}) 
+            user = form.save()
+            teacher = Teacher.objects.create(user=user)
+            # Additional processing or redirection
+            return redirect('login')
     else:
-        form = RegistroUsuarioForm()
+        form = TeacherSignUpForm()
+    return render(request, 'signup.html', {'form': form})
 
-    return render(request, 'signup.html', {'form': form}) #un ejemlo pls
-
-
+def parent_signup(request):
+    if request.method == 'POST':
+        form = ParentSignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            parent = Parent.objects.create(user=user)
+            # Additional processing or redirection
+            return redirect('login')
+    else:
+        form = ParentSignUpForm()
+    return render(request, 'signup.html', {'form': form})
 #redirecciona
 
 def seleccionPerfil(request):
@@ -52,6 +49,6 @@ def login(request):
 #llenar array
 
 def profile(request,username):
-        username = get_object_or_404(usuario,nombreDeUsuario=username)
+        #username = get_object_or_404(usuario,nombreDeUsuario=username)
         return HttpResponse("<h2>Hola %s</h2>" % username.nombreDeUsuario)
 #solo con vista restringida 
