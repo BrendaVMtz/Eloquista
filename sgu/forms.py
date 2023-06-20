@@ -1,12 +1,11 @@
 from django import forms
 
-class registroUsuario(forms.Form):
+class RegistroUsuarioForm(forms.Form):
     nombre = forms.CharField(label='Nombre', max_length=100)
     apellido = forms.CharField(label='Apellido', max_length=100)
     username = forms.CharField(label='Nombre de usuario', max_length=100)
     password = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
     correo = forms.CharField(label='Correo', widget=forms.EmailInput)
-    
 
 class registroPadre(forms.Form):
     calle = forms.CharField(label='Nombre', max_length=100)
