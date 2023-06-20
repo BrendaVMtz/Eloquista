@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import usuario
+from .models import usuario,cuidador
 from django.shortcuts import get_object_or_404
 from .forms import registroUsuario
+from django.contrib import messages
 
 # Create your views here.
 
@@ -15,17 +16,32 @@ from .forms import registroUsuario
 # vista de usuario
 
 def signup(request):
-        if request.method == 'GET':
+        if request.method == 'POST':
+                nombre_usuario = request.POST['username']
+                print(nombre_usuario)
+                if usuario.objects.filter(nombreDeUsuario = nombre_usuario).exists():
+                        messages.error(request, 'Nombre de usuario ya existe')
+                        return redirect('/comenzar/signup/')
+                else:
+                        nuevo_usuario = usuario.objects.create(
+                                nombre = request.POST['nombre'],
+                                apellido = request.POST['apellido'],
+                                nombreDeUsuario = request.POST['username'],
+                                contrasena = request.POST['password']
+                        )
+                        cuidador.objects.create(
+                                nombreDeUsuario =nuevo_usuario,
+                                correoElectronico = request.POST['correo']
+                        )
+                        return redirect('/comenzar/sel_perfil/')        
+        else:
                 return render(request, 'signup.html',{
                         'form':registroUsuario
                 })
-        else:
-                print(request.POST['nombre'])
-                return redirect('/comenzar/sel_perfil/')
 #redirecciona
 
 def seleccionPerfil(request):
-        return HttpResponse("<h2>Selecciona tu perfil</h2>")
+        return render(request, 'sel_perfil.html')
 
 def login(request):
         return render(request, 'login.html')
