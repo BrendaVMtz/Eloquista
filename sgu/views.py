@@ -42,3 +42,6 @@ def sel_perfil(request):
 def home(request):
     return render(request, 'home.html')
 
+def cerrar_sesion(request):
+    logout(request)
+    return redirect('/')

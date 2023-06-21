@@ -27,6 +27,7 @@ urlpatterns = [
     path('iniciar_sesion/', views.iniciar_sesion, name='iniciar_sesion'),
     path('sel_perfil/', views.sel_perfil, name='sel_perfil'),
     path('home/', views.home, name='home'),
+    path('cerrar_sesion/', views.cerrar_sesion, name='cerrar_sesion'),
     # path('comenzar/', include('sgu.urls')),
     # path('aprender/', include('sgl.urls'))
 ]
