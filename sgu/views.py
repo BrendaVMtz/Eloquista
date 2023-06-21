@@ -1,42 +1,44 @@
-from django.shortcuts import render, redirect
-from .forms import TeacherSignUpForm, ParentSignUpForm
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
+from django.db import IntegrityError
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
-def seleccionarPerfil(request):
-    return render(request, 'perfil.html')
-
-from django.shortcuts import render, redirect
-from .forms import TeacherSignUpForm, ParentSignUpForm, UserSignUpForm
-from .models import User, Teacher, Parent
-
-def teacher_signup(request):
-    if request.method == 'POST':
-        userForm = UserSignUpForm(request.POST)
-        form = TeacherSignUpForm(request.POST)
-        if userForm.is_valid() and form.is_valid():
-            user = userForm.save(commit=False)
-            user.is_teacher = True
-            user.save()
-            teacher = form.save(commit=False)
-            teacher.user = user
-            teacher.save()
-            return redirect('home')  # Replace 'home' with the appropriate URL
+def registro(request):
+    if request.method == 'GET':
+        return render(request, 'registro.html', {"form": UserCreationForm})
     else:
-        userForm = UserSignUpForm()
-        form = TeacherSignUpForm()
-    return render(request, 'signup.html', {'userForm': userForm, 'form': form})
 
-def parent_signup(request):
-    if request.method == 'POST':
-        form = ParentSignUpForm(request.POST)
-        if form.is_valid():
-            parent = form.save(commit=False)
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            user = User.objects.create(username=username, email=email, password=password, is_parent=True)
-            parent.user = user
-            parent.save()
-            return redirect('home')  # Replace 'home' with the appropriate URL
+        if request.POST["password1"] == request.POST["password2"]:
+            try:
+                user = User.objects.create_user(
+                    request.POST["username"], 
+                    password=request.POST["password1"])
+                user.save()
+                login(request, user)
+                return redirect('/sel_perfil')
+            except IntegrityError:
+                return render(request, 'registro.html', {"form": UserCreationForm, "error": "Usuario ya existe."})
+
+        return render(request, 'registro.html', {"form": UserCreationForm, "error": "Contraseñas no coinciden."})
+
+def iniciar_sesion(request):
+    if request.method == 'GET':
+        return render(request, 'iniciar_sesion.html', {"form": AuthenticationForm})
     else:
-        form = ParentSignUpForm()
-    return render(request, 'signup.html', {'form': form})
+        user = authenticate(
+            request, username=request.POST['username'], password=request.POST['password'])
+        if user is None:
+            return render(request, 'iniciar_sesion.html', {"form": AuthenticationForm, "error": "Nombre de usuario o contraseña incorrectos."})
+
+        login(request, user)
+        return redirect('home')
+
+def sel_perfil(request):
+     return render(request, 'sel_perfil.html')
+
+def home(request):
+    return render(request, 'home.html')
+

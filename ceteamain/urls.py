@@ -17,11 +17,16 @@ Including another URLconf
 #from inicio import views
 from django.contrib import admin
 from django.urls import path, include
+from sgu import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('inicio.urls')),
-    path('comenzar/', include('sgu.urls')),
-    path('aprender/', include('sgl.urls'))
+    path('registro/', views.registro, name='registro'),
+    path('iniciar_sesion/', views.iniciar_sesion, name='iniciar_sesion'),
+    path('sel_perfil/', views.sel_perfil, name='sel_perfil'),
+    path('home/', views.home, name='home'),
+    # path('comenzar/', include('sgu.urls')),
+    # path('aprender/', include('sgl.urls'))
 ]
