@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
-from .models import padre
-from .forms import ParentSignUpForm,TeacherSignUpForm,DoctorSignUpForm
+#from .models import padre
+# from .forms import ParentSignUpForm,TeacherSignUpForm,DoctorSignUpForm
 
 def registro(request):
     if request.method == 'GET':
@@ -20,7 +20,7 @@ def registro(request):
                     password=request.POST["password1"])
                 user.save()
                 login(request, user)
-                return redirect('/sel_perfil')
+                return redirect('/home')
             except IntegrityError:
                 return render(request, 'registro.html', {"form": UserCreationForm, "error": "Usuario ya existe."})
 
@@ -45,17 +45,28 @@ def cerrar_sesion(request):
     logout(request)
     return redirect('/')
 
-def sel_perfil(request):
-     return render(request, 'sel_perfil.html')
+# def sel_perfil(request):
+#      return render(request, 'sel_perfil.html')
 
-def registro_padre(request):
-    name = 'Padres y tutores'
-    return render(request, 'registro_padre.html', {"form": ParentSignUpForm, "name":name})
+# def registro_padre(request):
+#      if request.method == "GET":
+#         name = 'Padres y tutores'
+#         return render(request, 'registro_padre.html', {"form": ParentSignUpForm, "name":name})
+#      else:
+#         form = ParentSignUpForm(request.POST)
+#         try:
+#              parent_profile = form.save(commit=False)
+#              #parent_profile.user = request.user
+#              parent_profile.save()
+#              return redirect('/home')
+#         except ValueError:
+#             return render(request, 'registro_padre.html', {"form": ParentSignUpForm, "name":name, "error": "Error en los datos"})
 
-def registro_profesor(request):
-    name = 'Profesores'
-    return render(request, 'registro_padre.html', {"form": TeacherSignUpForm, "name":name})
 
-def registro_salud(request):
-    name = 'Profesionales de la salud'
-    return render(request, 'registro_padre.html', {"form": DoctorSignUpForm, "name":name})
+# def registro_profesor(request):
+#     name = 'Profesores'
+#     return render(request, 'registro_padre.html', {"form": TeacherSignUpForm, "name":name})
+
+# def registro_salud(request):
+#     name = 'Profesionales de la salud'
+#     return render(request, 'registro_padre.html', {"form": DoctorSignUpForm, "name":name})

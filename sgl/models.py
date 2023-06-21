@@ -32,12 +32,12 @@ class progresoLecciones(models.Model):
     # class Meta:
     #     unique_together = ('idAlumno','idLeccion')
 
-@receiver(post_save, sender=progresoEjercicios)
-def verificar_leccion_completa(sender, instance, **kwargs):
-    leccion = instance.idEjercicio.idLeccion
-    alumno = instance.idAlumno
+# @receiver(post_save, sender=progresoEjercicios)
+# def verificar_leccion_completa(sender, instance, **kwargs):
+#     leccion = instance.idEjercicio.idLeccion
+#     alumno = instance.idAlumno
 
-    if not Ejercicio.objects.filter(idLeccion=leccion, id__in=progresoEjercicios.objects.filter(idAlumno=alumno, ejercicioCompleto=False)).exists():
-        progreso = progresoLecciones.objects.get(idAlumno=alumno, idLeccion=leccion)
-        progreso.leccionCompleta = True
-        progreso.save()
+#     if not Ejercicio.objects.filter(idLeccion=leccion, id__in=progresoEjercicios.objects.filter(idAlumno=alumno, ejercicioCompleto=False)).exists():
+#         progreso = progresoLecciones.objects.get(idAlumno=alumno, idLeccion=leccion)
+#         progreso.leccionCompleta = True
+#         progreso.save()
