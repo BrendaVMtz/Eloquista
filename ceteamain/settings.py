@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'inicio',
     'sgl',
     'sgu',
+    "verify_email.apps.VerifyEmailConfig",
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'sgu.User'
+
