@@ -3,8 +3,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+
+from .models import padre
+from .forms import ParentSignUpForm,TeacherSignUpForm,DoctorSignUpForm
 
 def registro(request):
     if request.method == 'GET':
@@ -36,12 +38,24 @@ def iniciar_sesion(request):
         login(request, user)
         return redirect('home')
 
-def sel_perfil(request):
-     return render(request, 'sel_perfil.html')
-
 def home(request):
     return render(request, 'home.html')
 
 def cerrar_sesion(request):
     logout(request)
     return redirect('/')
+
+def sel_perfil(request):
+     return render(request, 'sel_perfil.html')
+
+def registro_padre(request):
+    name = 'Padres y tutores'
+    return render(request, 'registro_padre.html', {"form": ParentSignUpForm, "name":name})
+
+def registro_profesor(request):
+    name = 'Profesores'
+    return render(request, 'registro_padre.html', {"form": TeacherSignUpForm, "name":name})
+
+def registro_salud(request):
+    name = 'Profesionales de la salud'
+    return render(request, 'registro_padre.html', {"form": DoctorSignUpForm, "name":name})

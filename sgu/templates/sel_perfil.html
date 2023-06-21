@@ -1,20 +1,30 @@
-{% extends 'layouts/base.html' %} {% block content %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eloquista</title>
+    
+  </head>
+  <body>
     <h1>
         selecciona tu tipo de perfil
     </h1>
     <div>
-        <a href="#">
+        <a href="/registro_padre">
             <p>Padre</p>
         </a>
     </div>
     <div>
-        <a href="#">
+        <a href="/registro_profesor">
             <p>Profesor</p>
         </a>
     </div>
     <div>
-        <a href="#">
-            <p>Profesor</p>
+        <a href="/registro_salud">
+            <p>Profesional de la salud</p>
         </a>
     </div>
-{% endblock %}
+</body>
+</html>

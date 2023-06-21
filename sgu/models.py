@@ -1,20 +1,35 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class User(models.Model):
-    username = models.CharField(max_length=100,unique=True)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=100)
-    is_teacher = models.BooleanField(default=False)
-    is_parent = models.BooleanField(default=False)
+class padre(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    calle = models.CharField(max_length=100)
+    numero = models.CharField(max_length=100)
+    delegacion = models.CharField(max_length=100)
+    codigo_postal = models.CharField(max_length=100)
+    numero_de_telefono = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return 'Padre: ' + self.usuario.username
 
-class Teacher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    institution = models.CharField(max_length=100)
-    phoneNumber = models.CharField(max_length=100)
+class profesor(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    institucion = models.CharField(max_length=100)
+    titulo_academico = models.CharField(max_length=100)
+    delegacion = models.CharField(max_length=100)
+    numero_de_telefono = models.CharField(max_length=100)
 
-class Parent(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    street = models.CharField(max_length=100)
-    number = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    phoneNumber = models.CharField(max_length=100)
+    def __str__(self):
+        return 'Profesor: ' + self.usuario.username
+
+class salud(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    institucion = models.CharField(max_length=100)
+    cedula = models.CharField(max_length=100)
+    delegacion = models.CharField(max_length=100)
+    numero_de_telefono = models.CharField(max_length=100)
+
+    def __str__(self):
+        return 'Profesional-salud: ' + self.usuario.username
+
+     

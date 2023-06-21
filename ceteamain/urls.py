@@ -28,6 +28,11 @@ urlpatterns = [
     path('sel_perfil/', views.sel_perfil, name='sel_perfil'),
     path('home/', views.home, name='home'),
     path('cerrar_sesion/', views.cerrar_sesion, name='cerrar_sesion'),
+    path('registro_padre/', views.registro_padre, name='registro_padre'),
+    path('registro_profesor/', views.registro_profesor, name='registro_profesor'),
+    path('registro_salud/', views.registro_salud, name='registro_salud'),
+    #path('registro_profesor/',views.registro_profesor),
+    #path('registro_salud/',views.registro_profesor),
     # path('comenzar/', include('sgu.urls')),
     # path('aprender/', include('sgl.urls'))
 ]
