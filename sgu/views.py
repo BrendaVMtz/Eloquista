@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
+from verify_email.email_handler import send_verification_email
 
 #from .models import padre
 # from .forms import ParentSignUpForm,TeacherSignUpForm,DoctorSignUpForm
@@ -19,6 +20,7 @@ def registro(request):
                     request.POST["username"], 
                     password=request.POST["password1"])
                 user.save()
+                #inactive_user = send_verification_email(request, form)
                 login(request, user)
                 return redirect('/home')
             except IntegrityError:
