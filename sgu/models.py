@@ -9,7 +9,7 @@ class User(models.Model):
 
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    intitution = models.CharField(max_length=100)
+    institution = models.CharField(max_length=100)
     phoneNumber = models.CharField(max_length=100)
 
 class Parent(models.Model):
