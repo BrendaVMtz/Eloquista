@@ -5,7 +5,7 @@
     {{error}}
     <form action="/registro/" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ userForm.as_p }}
         <button type="submit">Registro</button>
     </form>
 </div>

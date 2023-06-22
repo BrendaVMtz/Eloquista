@@ -1,34 +1,42 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.models import User
-from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
-from verify_email.email_handler import send_verification_email
+from django.contrib.auth.forms import AuthenticationForm
 
-#from .models import padre
-# from .forms import ParentSignUpForm,TeacherSignUpForm,DoctorSignUpForm
+from .forms import UserRegisterForm
+# Create your views here.
+
+# def home(request):
+#     return render(request, 'home.html')
 
 def registro(request):
-    if request.method == 'GET':
-        return render(request, 'registro.html', {"form": UserCreationForm})
+    # Logged in user can't register a new account
+    if request.user.is_authenticated:
+        return redirect("/home")
+
+    if request.method == 'POST':
+        userForm = UserRegisterForm(request.POST)
+        if userForm.is_valid():
+            user = userForm.save()
+            login(request, user)
+            return redirect('/home')
+        else:
+            for error in list(userForm.errors.values()):
+                print(request, error)
+
     else:
+        userForm = UserRegisterForm()
 
-        if request.POST["password1"] == request.POST["password2"]:
-            try:
-                user = User.objects.create_user(
-                    request.POST["username"], 
-                    password=request.POST["password1"])
-                user.save()
-                #inactive_user = send_verification_email(request, form)
-                login(request, user)
-                return redirect('/home')
-            except IntegrityError:
-                return render(request, 'registro.html', {"form": UserCreationForm, "error": "Usuario ya existe."})
-
-        return render(request, 'registro.html', {"form": UserCreationForm, "error": "Contraseñas no coinciden."})
+    return render(
+        request = request,
+        template_name = "registro.html",
+        context={"userForm":userForm}
+        )
 
 def iniciar_sesion(request):
+    if request.user.is_authenticated:
+        return redirect("/home")
+
     if request.method == 'GET':
         return render(request, 'iniciar_sesion.html', {"form": AuthenticationForm})
     else:
@@ -38,14 +46,37 @@ def iniciar_sesion(request):
             return render(request, 'iniciar_sesion.html', {"form": AuthenticationForm, "error": "Nombre de usuario o contraseña incorrectos."})
 
         login(request, user)
-        return redirect('home')
+        return redirect('/home')
 
 def home(request):
     return render(request, 'home.html')
 
+@login_required
 def cerrar_sesion(request):
     logout(request)
     return redirect('/')
+
+
+
+
+#from .models import padre
+# from .forms import ParentSignUpForm,TeacherSignUpForm,DoctorSignUpForm
+
+# def iniciar_sesion(request):
+#     if request.method == 'GET':
+#         return render(request, 'iniciar_sesion.html', {"form": AuthenticationForm})
+#     else:
+#         user = authenticate(
+#             request, username=request.POST['username'], password=request.POST['password'])
+#         if user is None:
+#             return render(request, 'iniciar_sesion.html', {"form": AuthenticationForm, "error": "Nombre de usuario o contraseña incorrectos."})
+
+#         login(request, user)
+#         return redirect('home')
+
+# def cerrar_sesion(request):
+#     logout(request)
+#     return redirect('/')
 
 # def sel_perfil(request):
 #      return render(request, 'sel_perfil.html')

@@ -1,12 +1,20 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 # Create your views here.
 def home(request):
-    return render(request, 'index.html')
+    if request.user.is_authenticated:
+        return redirect("/home")
+    else:
+        return render(request, 'index.html')
 
 def acerca(request):
-    return render(request, 'acerca.html')
+    if request.user.is_authenticated:
+        return redirect("/home")
+    else:
+        return render(request, 'acerca.html')
 
 def contacto(request):
-    return render(request, 'contacto.html')
+    if request.user.is_authenticated:
+        return redirect("/home")
+    else:
+        return render(request, 'contacto.html')

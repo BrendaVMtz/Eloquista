@@ -1,10 +1,14 @@
-from django.db import models
-# from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 
-class User(AbstractUser):
-    phone = models.TextField(max_length=20, blank=False)
-    is_verified = models.BooleanField(default=False)
+class usuario(AbstractUser):
+
+    numero_de_telefono = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.username
+
+
 
 # class padre(models.Model):
 #     #usuario = models.ForeignKey(User, on_delete=models.CASCADE)

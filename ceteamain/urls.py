@@ -22,13 +22,13 @@ from sgu import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('verification/', include('verify_email.urls')),
     path('', include('inicio.urls')),
+    path('home/', views.home, name='home'),
     path('registro/', views.registro, name='registro'),
     path('iniciar_sesion/', views.iniciar_sesion, name='iniciar_sesion'),
-    path('home/', views.home, name='home'),
+    path('cerrar_sesion/', views.cerrar_sesion, name='cerrar_sesion'),
+    # path('verification/', include('verify_email.urls')),
     # path('sel_perfil/', views.sel_perfil, name='sel_perfil'),
-    # path('cerrar_sesion/', views.cerrar_sesion, name='cerrar_sesion'),
     # path('registro_padre/', views.registro_padre, name='registro_padre'),
     # path('registro_profesor/', views.registro_profesor, name='registro_profesor'),
     # path('registro_salud/', views.registro_salud, name='registro_salud'),
