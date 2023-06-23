@@ -1,0 +1,16 @@
+<nav>
+    <div class="container">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a href="/home" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/cerrar_sesion">cerrar_sesion</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>

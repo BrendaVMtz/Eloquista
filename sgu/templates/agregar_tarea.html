@@ -1,0 +1,21 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+<h2>Agregar Tarea</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form }}
+  <button type="submit">Guardar Tarea</button>
+</form>
+
+<h2>Tareas</h2>
+<ul>
+  {% for tarea in tareas %}
+    <li>{{ tarea.nombre }} - {{ tarea.descripcion }}</li>
+  {% empty %}
+    <li>No hay tareas.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

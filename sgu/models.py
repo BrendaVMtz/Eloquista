@@ -1,47 +1,67 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
 
-# Create your models here.
+class usuario(AbstractUser):
+    numero_de_telefono = models.CharField(max_length=100)
 
-class usuario(models.Model):
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    nombreDeUsuario = models.CharField(max_length=50, unique=True,primary_key=True)
-    contrasena = models.CharField(max_length=50)
+    def __str__(self):
+        return self.username
+
+class Tarea(models.Model):
+    usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100)
+    descripcion = models.TextField()
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nombre
+    
+class Profesor(models.Model):
+    usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
+    institucion = models.CharField(max_length=100)
+    titulo_academico = models.CharField(max_length=100)
+
+    def __str__(self):
+        return 'Profesor: ' + self.usuario.username
+
+class Alumno(models.Model):
+    usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100)
+    edad = models.IntegerField()
+
+    def __str__(self):
+        return self.nombre
 
 
-class cuidador(models.Model):
-    nombreDeUsuario = models.OneToOneField(usuario,on_delete=models.CASCADE)
-    correoElectronico = models.CharField(max_length=100)
+# class padre(models.Model):
+#     usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
+#     calle = models.CharField(max_length=100)
+#     numero = models.CharField(max_length=100)
+#     delegacion = models.CharField(max_length=100)
+#     codigo_postal = models.CharField(max_length=100)
+#     numero_de_telefono = models.CharField(max_length=100)
+    
+#     def __str__(self):
+#         return 'Padre: ' + self.usuario.username
 
-class padre(cuidador):
-    calle = models.CharField(max_length=100)
-    numero = models.CharField(max_length=100)    
-    delegacion = models.CharField(max_length=100)    
-    telefono = models.PositiveIntegerField  
+# class profesor(models.Model):
+#     usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
+#     institucion = models.CharField(max_length=100)
+#     titulo_academico = models.CharField(max_length=100)
+#     delegacion = models.CharField(max_length=100)
+#     numero_de_telefono = models.CharField(max_length=100)
 
-class salud(cuidador):
-    cedula = models.CharField(max_length=100)
-    institucion = models.CharField(max_length=100)    
-    delegacion = models.CharField(max_length=100)    
-    telefono = models.PositiveIntegerField  
+#     def __str__(self):
+#         return 'Profesor: ' + self.usuario.username
 
-class profesor(cuidador):
-    cedula = models.CharField(max_length=100)
-    institucion = models.CharField(max_length=100)    
-    delegacion = models.CharField(max_length=100)    
-    telefono = models.PositiveIntegerField    
+# class salud(models.Model):
+#     usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
+#     institucion = models.CharField(max_length=100)
+#     cedula = models.CharField(max_length=100)
+#     delegacion = models.CharField(max_length=100)
+#     numero_de_telefono = models.CharField(max_length=100)
 
-class alumno(models.Model):
-    #idCuidador = models.ForeignKey(cuidador,on_delete=models.CASCADE, related_name='idCuidador')
-    nombreDeUsuario = models.OneToOneField(usuario,on_delete=models.CASCADE)
-    edad = models.IntegerField(
-    validators=[
-        MinValueValidator(0, message='El valor debe ser igual o mayor a 0.'),
-        MaxValueValidator(150, message='El valor debe ser igual o menor a 150.')
-    ]
-)
+#     def __str__(self):
+#         return 'Profesional-salud: ' + self.usuario.username
 
-class alumno_cuidador(models.Model):
-    alumno = models.ForeignKey(alumno,on_delete=models.SET_NULL,null=True)
-    cuidador = models.ForeignKey(cuidador,on_delete=models.CASCADE)
+     

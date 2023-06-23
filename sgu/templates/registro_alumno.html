@@ -1,0 +1,21 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+<h2>Agregar Alumnos</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form }}
+  <button type="submit">Guardar</button>
+</form>
+
+<h2>Registro de alumnos</h2>
+<ul>
+  {% for alumno in alumnos %}
+    <li>{{ alumno.nombre }} - {{ alumno.edad }}</li>
+  {% empty %}
+    <li>No hay registros.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
