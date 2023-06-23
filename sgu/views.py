@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Tarea, usuario, Profesor
+from .models import Tarea, usuario, Profesor, Alumno
 from django.shortcuts import render, redirect
-from .forms import RegistroForm, TareaForm, ProfesorForm
+from .forms import RegistroForm, TareaForm, ProfesorForm, AlumnoForm
 
 # Create your views here.
 
@@ -84,6 +84,20 @@ def registro_profesor(request):
         form = ProfesorForm()
     profesores = Profesor.objects.filter(usuario=request.user)  # Agrega esta línea
     return render(request, 'registro_profesor.html', {'form': form, 'profesores': profesores})  # Agrega 'tareas' en el contexto
+
+@login_required
+def registro_alumno(request):
+    if request.method == 'POST':
+        form = AlumnoForm(request.POST)
+        if form.is_valid():
+            alumno = form.save(commit=False)
+            alumno.usuario = request.user
+            alumno.save()
+            return redirect('registro_alumno')
+    else:
+        form = AlumnoForm()
+    alumnos = Alumno.objects.filter(usuario=request.user)  # Agrega esta línea
+    return render(request, 'registro_alumno.html', {'form': form, 'alumnos': alumnos})  # Agrega 'tareas' en el contexto
 
 
 

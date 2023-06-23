@@ -27,7 +27,7 @@ class Profesor(models.Model):
 class Alumno(models.Model):
     usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100)
-    edad = models.IntegerField
+    edad = models.IntegerField()
 
     def __str__(self):
         return self.nombre

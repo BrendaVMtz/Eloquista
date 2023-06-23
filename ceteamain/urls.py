@@ -31,6 +31,7 @@ urlpatterns = [
     path('cerrar_sesion/', views.cerrar_sesion, name='cerrar_sesion'),
     path('sel_perfil/', views.sel_perfil, name='sel_perfil'),
     path('registro_profesor/', views.registro_profesor, name='registro_profesor'),
+    path('registro_alumno/', views.registro_alumno, name='registro_alumno'),
     # path('registro_padre/', views.registro_padre, name='registro_padre'),
     # path('registro_salud/', views.registro_salud, name='registro_salud'),
     # # path('verification/', include('verify_email.urls')),
