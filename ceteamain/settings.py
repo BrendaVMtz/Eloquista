@@ -134,13 +134,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'sgu.usuario'
 
-from dotenv import load_dotenv
 
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv('EMAIL_ID') 
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PW')
+# from dotenv import load_dotenv
+
+# EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = os.getenv('EMAIL_ID') 
+# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PW')
 
 

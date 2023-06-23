@@ -1,0 +1,21 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+<h2>Agregar Titulo</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form }}
+  <button type="submit">Guardar</button>
+</form>
+
+<h2>Titulos</h2>
+<ul>
+  {% for profesor in profesores %}
+    <li>{{ profesor.institucion }} - {{ profesor.titulo_academico }}</li>
+  {% empty %}
+    <li>No hay registros.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
