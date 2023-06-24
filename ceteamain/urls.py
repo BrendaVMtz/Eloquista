@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('inicio.urls')),
     path('home', views.home, name='home'),
-    path('registro/', views.registrar, name='registro'),
+    path('registrar/', views.registrar, name='registrar'),
     path('iniciar_sesion/', views.iniciar_sesion, name='iniciar_sesion'),
     path('iniciar_sesion/', views.iniciar_sesion, name='iniciar_sesion'),
     path('agregar_tarea/', views.agregar_tarea, name='agregar_tarea'),
@@ -32,11 +32,12 @@ urlpatterns = [
     path('sel_perfil/', views.sel_perfil, name='sel_perfil'),
     path('registro_profesor/', views.registro_profesor, name='registro_profesor'),
     path('registro_alumno/', views.registro_alumno, name='registro_alumno'),
+    path('examen/', include('sgl.urls'), name = 'examen'),
+    path('resultado/', include('sgl.urls'), name = 'resultado'),
     # path('registro_padre/', views.registro_padre, name='registro_padre'),
     # path('registro_salud/', views.registro_salud, name='registro_salud'),
     # # path('verification/', include('verify_email.urls')),
     #path('registro_profesor/',views.registro_profesor),
     #path('registro_salud/',views.registro_profesor),
-    # path('comenzar/', include('sgu.urls')),
     # path('aprender/', include('sgl.urls'))
 ]

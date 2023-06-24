@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Examen</title>
+</head>
+<body>
+    <h1>Examen de opción múltiple</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for pregunta in preguntas %}
+            <h3>{{ pregunta.pregunta }}</h3>
+            {% for opcion in opciones %}
+                {% if opcion.pregunta == pregunta %}
+                    <input type="radio" name="opcion_{{ pregunta.id }}" value="{{ opcion.id }}">
+                    {{ opcion.opcion }}
+                    <br>
+                {% endif %}
+            {% endfor %}
+            <br>
+        {% endfor %}
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
+
+
