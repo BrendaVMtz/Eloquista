@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
-from .models import Pregunta, Opcion, RespuestaUsuario, Calificacion
 from django.contrib import messages
+from django.db import IntegrityError
+from .models import Examen, Pregunta, Opcion, RespuestaUsuario, Calificacion
 
-def examen(request):
+def examen(request, examen_id):
+    examen = Examen.objects.get(id=examen_id)
+    usuario = request.user
+
     if request.method == 'POST':
-        usuario = request.user
-        preguntas = Pregunta.objects.all()
+        preguntas = Pregunta.objects.filter(examen=examen)
         total_preguntas = preguntas.count()
         puntaje = 0
 
@@ -21,15 +24,24 @@ def examen(request):
                     puntaje += 1
 
         calificacion = int((puntaje / total_preguntas) * 100)
-        calificacion_usuario = Calificacion(usuario=usuario, calificacion=calificacion)
-        calificacion_usuario.save()
+
+        try:
+            # Intentar obtener la calificación existente del usuario para el examen actual
+            calificacion_usuario = Calificacion.objects.get(usuario=usuario, examen=examen)
+            calificacion_usuario.calificacion = calificacion  # Sobrescribir la calificación existente
+            calificacion_usuario.save()
+        except Calificacion.DoesNotExist:
+            # Si no existe una calificación existente, crear una nueva
+            calificacion_usuario = Calificacion(usuario=usuario, examen=examen, calificacion=calificacion)
+            calificacion_usuario.save()
 
         messages.success(request, 'Examen completado. Tu calificación se ha guardado.')
         return redirect('resultado')
 
-    preguntas = Pregunta.objects.all()
-    opciones = Opcion.objects.all()
+    preguntas = Pregunta.objects.filter(examen=examen)
+    opciones = Opcion.objects.filter(pregunta__in=preguntas)
     context = {
+        'examen': examen,
         'preguntas': preguntas,
         'opciones': opciones
     }
@@ -37,10 +49,10 @@ def examen(request):
 
 def resultado(request):
     usuario = request.user
-    calificacion = Calificacion.objects.get(usuario=usuario)
+    calificaciones = Calificacion.objects.filter(usuario=usuario)
 
     context = {
-        'calificacion': calificacion
+        'calificaciones': calificaciones
     }
     return render(request, 'resultado.html', context)
 

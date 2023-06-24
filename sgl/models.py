@@ -1,7 +1,15 @@
 from django.db import models
 from sgu.models import usuario
 
+class Examen(models.Model):
+    nombre = models.CharField(max_length=100)
+    descripcion = models.TextField()
+
+    def __str__(self):
+        return self.nombre
+    
 class Pregunta(models.Model):
+    examen = models.ForeignKey(Examen, on_delete=models.CASCADE)
     pregunta = models.TextField()
     
     def __str__(self):
@@ -25,6 +33,7 @@ class RespuestaUsuario(models.Model):
 
 class Calificacion(models.Model):
     usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
+    examen = models.ForeignKey(Examen, on_delete=models.CASCADE)
     calificacion = models.IntegerField()
 
     def __str__(self):

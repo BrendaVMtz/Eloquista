@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Resultado del examen</title>
-</head>
-<body>
-    <h1>Resultado del examen</h1>
-    <p>Tu calificación es: {{ calificacion.calificacion }}%</p>
-</body>
-</html>
+{% for calificacion in calificaciones %}
+  <div class="calificacion">
+    <h3>Calificación: {{ calificacion.calificacion }}</h3>
+    <p>Examen: {{ calificacion.examen }}</p>
+    <!-- Otros detalles de la calificación -->
+  </div>
+{% empty %}
+  <p>No hay calificaciones disponibles.</p>
+{% endfor %}
+

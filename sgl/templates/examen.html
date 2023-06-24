@@ -4,7 +4,7 @@
     <title>Examen</title>
 </head>
 <body>
-    <h1>Examen de opción múltiple</h1>
+    <h1>Examen: {{ examen.nombre }}</h1>
     <form method="post">
         {% csrf_token %}
         {% for pregunta in preguntas %}
@@ -22,5 +22,6 @@
     </form>
 </body>
 </html>
+
 
 
