@@ -79,7 +79,7 @@ def registro_profesor(request):
             profesor = form.save(commit=False)
             profesor.usuario = request.user
             profesor.save()
-            return redirect('registro_profesor')
+            return redirect('registro_alumno')
     else:
         form = ProfesorForm()
     profesores = Profesor.objects.filter(usuario=request.user)  # Agrega esta línea

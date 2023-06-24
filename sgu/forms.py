@@ -32,7 +32,7 @@ class TareaForm(ModelForm):
 class ProfesorForm(forms.ModelForm):
     class Meta:
         model = Profesor
-        fields = ['institucion', 'titulo_academico']
+        fields = ['institucion', 'titulo_academico','delegacion']
 
 class AlumnoForm(forms.ModelForm):
     class Meta:

@@ -15,14 +15,6 @@ class Tarea(models.Model):
 
     def __str__(self):
         return self.nombre
-    
-class Profesor(models.Model):
-    usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
-    institucion = models.CharField(max_length=100)
-    titulo_academico = models.CharField(max_length=100)
-
-    def __str__(self):
-        return 'Profesor: ' + self.usuario.username
 
 class Alumno(models.Model):
     usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
@@ -31,6 +23,36 @@ class Alumno(models.Model):
 
     def __str__(self):
         return self.nombre
+
+DELEGACIONES_CDMX = [
+    ('ALVARO', 'Álvaro Obregón'),
+    ('AZCAPOTZALCO', 'Azcapotzalco'),
+    ('BENITO', 'Benito Juárez'),
+    ('COYOACAN', 'Coyoacán'),
+    ('CUAJIMALPA', 'Cuajimalpa de Morelos'),
+    ('CUAUHTEMOC', 'Cuauhtémoc'),
+    ('GUSTAVO', 'Gustavo A. Madero'),
+    ('IZTACALCO', 'Iztacalco'),
+    ('IZTAPALAPA', 'Iztapalapa'),
+    ('MAGDALENA', 'La Magdalena Contreras'),
+    ('MIGUEL', 'Miguel Hidalgo'),
+    ('MILPA', 'Milpa Alta'),
+    ('TLAHUAC', 'Tláhuac'),
+    ('TLALPAN', 'Tlalpan'),
+    ('VENUSTIANO', 'Venustiano Carranza'),
+    ('XOCHIMILCO', 'Xochimilco'),
+]
+
+class Profesor(models.Model):
+    usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
+    institucion = models.CharField(max_length=100)
+    titulo_academico = models.CharField(max_length=100)
+    delegacion = models.CharField(max_length=100, choices=DELEGACIONES_CDMX)
+
+    def __str__(self):
+        return 'Profesor: ' + self.usuario.username
+
+
 
 
 # class padre(models.Model):
@@ -43,16 +65,6 @@ class Alumno(models.Model):
     
 #     def __str__(self):
 #         return 'Padre: ' + self.usuario.username
-
-# class profesor(models.Model):
-#     usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
-#     institucion = models.CharField(max_length=100)
-#     titulo_academico = models.CharField(max_length=100)
-#     delegacion = models.CharField(max_length=100)
-#     numero_de_telefono = models.CharField(max_length=100)
-
-#     def __str__(self):
-#         return 'Profesor: ' + self.usuario.username
 
 # class salud(models.Model):
 #     usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)

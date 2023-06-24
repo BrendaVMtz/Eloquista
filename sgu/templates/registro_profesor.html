@@ -1,21 +1,29 @@
-{% extends "layouts/base.html" %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eloquista</title>
+    
+  </head>
+  <body>
+    <h2>Profesores</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Guardar</button>
+    </form>
+  </body>
+</html>
 
-{% block content %}
 
-<h2>Agregar Titulo</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form }}
-  <button type="submit">Guardar</button>
-</form>
 
-<h2>Titulos</h2>
+<!-- <h2>Titulos</h2>
 <ul>
   {% for profesor in profesores %}
     <li>{{ profesor.institucion }} - {{ profesor.titulo_academico }}</li>
   {% empty %}
     <li>No hay registros.</li>
   {% endfor %}
-</ul>
-
-{% endblock %}
+</ul> -->
