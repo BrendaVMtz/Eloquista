@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Tarea, usuario, Profesor, Alumno
+from .models import Tarea, usuario, Alumno, Profesor, Padre, Salud
 from django.shortcuts import render, redirect
-from .forms import RegistroForm, TareaForm, ProfesorForm, AlumnoForm
+from .forms import RegistroForm, TareaForm, AlumnoForm, ProfesorForm, ParentForm, DoctorForm
 
 # Create your views here.
 
@@ -71,19 +71,6 @@ def agregar_tarea(request):
     tareas = Tarea.objects.filter(usuario=request.user)  # Agrega esta línea
     return render(request, 'home.html', {'form': form, 'tareas': tareas})  # Agrega 'tareas' en el contexto
 
-@login_required
-def registro_profesor(request):
-    if request.method == 'POST':
-        form = ProfesorForm(request.POST)
-        if form.is_valid():
-            profesor = form.save(commit=False)
-            profesor.usuario = request.user
-            profesor.save()
-            return redirect('registro_alumno')
-    else:
-        form = ProfesorForm()
-    profesores = Profesor.objects.filter(usuario=request.user)  # Agrega esta línea
-    return render(request, 'registro_profesor.html', {'form': form, 'profesores': profesores})  # Agrega 'tareas' en el contexto
 
 @login_required
 def registro_alumno(request):
@@ -99,6 +86,47 @@ def registro_alumno(request):
     alumnos = Alumno.objects.filter(usuario=request.user)  # Agrega esta línea
     return render(request, 'registro_alumno.html', {'form': form, 'alumnos': alumnos})  # Agrega 'tareas' en el contexto
 
+@login_required
+def registro_profesor(request):
+    if request.method == 'POST':
+        form = ProfesorForm(request.POST)
+        if form.is_valid():
+            profesor = form.save(commit=False)
+            profesor.usuario = request.user
+            profesor.save()
+            return redirect('registro_alumno')
+    else:
+        form = ProfesorForm()
+    profesores = Profesor.objects.filter(usuario=request.user)  
+    return render(request, 'registro_profesor.html', {'form': form, 'profesores': profesores})  # Agrega 'tareas' en el contexto
+
+@login_required
+def registro_padre(request):
+    if request.method == 'POST':
+        form = ParentForm(request.POST)
+        if form.is_valid():
+            padre = form.save(commit=False)
+            padre.usuario = request.user
+            padre.save()
+            return redirect('registro_alumno')
+    else:
+        form = ParentForm()
+    padres = Padre.objects.filter(usuario=request.user)  
+    return render(request, 'registro_padre.html', {'form': form, 'padres': padres})  
+
+@login_required
+def registro_salud(request):
+    if request.method == 'POST':
+        form = DoctorForm(request.POST)
+        if form.is_valid():
+            doctor = form.save(commit=False)
+            doctor.usuario = request.user
+            doctor.save()
+            return redirect('registro_alumno')
+    else:
+        form = DoctorForm()
+    doctores = Salud.objects.filter(usuario=request.user)  
+    return render(request, 'registro_salud.html', {'form': form, 'doctores': doctores})  
 
 
 

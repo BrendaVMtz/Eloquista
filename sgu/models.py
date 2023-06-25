@@ -52,28 +52,23 @@ class Profesor(models.Model):
     def __str__(self):
         return 'Profesor: ' + self.usuario.username
 
-
-
-
-# class padre(models.Model):
-#     usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
-#     calle = models.CharField(max_length=100)
-#     numero = models.CharField(max_length=100)
-#     delegacion = models.CharField(max_length=100)
-#     codigo_postal = models.CharField(max_length=100)
-#     numero_de_telefono = models.CharField(max_length=100)
+class Padre(models.Model):
+    usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
+    calle = models.CharField(max_length=100)
+    numero = models.CharField(max_length=100)
+    delegacion = models.CharField(max_length=100, choices=DELEGACIONES_CDMX)
+    codigo_postal = models.CharField(max_length=100)
     
-#     def __str__(self):
-#         return 'Padre: ' + self.usuario.username
+    def __str__(self):
+        return 'Padre: ' + self.usuario.username
 
-# class salud(models.Model):
-#     usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
-#     institucion = models.CharField(max_length=100)
-#     cedula = models.CharField(max_length=100)
-#     delegacion = models.CharField(max_length=100)
-#     numero_de_telefono = models.CharField(max_length=100)
+class Salud(models.Model):
+    usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
+    institucion = models.CharField(max_length=100)
+    cedula = models.CharField(max_length=100)
+    delegacion = models.CharField(max_length=100, choices=DELEGACIONES_CDMX)
 
-#     def __str__(self):
-#         return 'Profesional-salud: ' + self.usuario.username
+    def __str__(self):
+        return 'Profesional-salud: ' + self.usuario.username
 
      

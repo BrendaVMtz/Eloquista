@@ -2,7 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
-from .models import Tarea,usuario, Profesor,Alumno
+from .models import Tarea,usuario,Alumno, Profesor, Padre, Salud
 from django.utils.translation import gettext_lazy as _  # Agrega esta línea
 
 class RegistroForm(UserCreationForm):
@@ -29,44 +29,23 @@ class TareaForm(ModelForm):
         model = Tarea
         fields = ['nombre', 'descripcion']
 
-class ProfesorForm(forms.ModelForm):
-    class Meta:
-        model = Profesor
-        fields = ['institucion', 'titulo_academico','delegacion']
-
 class AlumnoForm(forms.ModelForm):
     class Meta:
         model = Alumno
         fields = ['nombre', 'edad']
 
-# class UserRegisterForm(UserCreationForm):
-#     email = forms.EmailField(help_text='Ingresa un correo.')
+class ProfesorForm(forms.ModelForm):
+    class Meta:
+        model = Profesor
+        fields = ['institucion', 'titulo_academico','delegacion']
 
-#     class Meta:
-#         model = usuario
-#         fields = ['username', 'password1', 'password2','first_name','last_name']
+class ParentForm(forms.ModelForm):
+    class Meta:
+        model = Padre
+        fields = ['calle', 'numero','delegacion','codigo_postal']
 
-# class TareaForm(forms.ModelForm):
-#     class Meta:
-#         model = Tarea
-#         fields = ('nombre', 'descripcion')
-
-# class ParentSignUpForm(forms.ModelForm):
-#     class Meta:
-#         model = padre
-#         fields = ('calle', 'numero', 
-#                   'delegacion', 'codigo_postal',
-#                   'numero_de_telefono')
-
-# class TeacherSignUpForm(forms.ModelForm):
-#     class Meta:
-#         model = profesor
-#         fields = ('institucion', 'titulo_academico', 
-#                   'delegacion', 'numero_de_telefono')
-
-# class DoctorSignUpForm(forms.ModelForm):
-#     class Meta:
-#         model = salud
-#         fields = ('institucion', 'cedula', 
-#                   'delegacion', 'numero_de_telefono')
+class DoctorForm(forms.ModelForm):
+    class Meta:
+        model = Salud
+        fields = ['institucion', 'cedula','delegacion']
 

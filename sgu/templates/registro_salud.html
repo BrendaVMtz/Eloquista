@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eloquista</title>
+    
+  </head>
+  <body>
+    <h2>Profesionales de la salud</h2>
+    <p>
+        Colaborar estrechamente con terapeutas del lenguaje, psicólogos y otros expertos en TEA permite desarrollar soluciones más efectivas y adaptadas a las necesidades específicas de cada adolescente.
+    </p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Guardar</button>
+    </form>
+  </body>
+</html>

@@ -34,10 +34,7 @@ urlpatterns = [
     path('registro_alumno', views.registro_alumno, name='registro_alumno'),
     path('examen/', include('sgl.urls'), name = 'examen'),
     path('resultado/', include('sgl.urls'), name = 'resultado'),
-    # path('registro_padre/', views.registro_padre, name='registro_padre'),
-    # path('registro_salud/', views.registro_salud, name='registro_salud'),
-    # # path('verification/', include('verify_email.urls')),
-    #path('registro_profesor/',views.registro_profesor),
-    #path('registro_salud/',views.registro_profesor),
+    path('registro_padre/', views.registro_padre, name='registro_padre'),
+    path('registro_salud/', views.registro_salud, name='registro_salud'),
     # path('aprender/', include('sgl.urls'))
 ]
