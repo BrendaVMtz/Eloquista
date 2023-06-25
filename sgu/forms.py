@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _  # Agrega esta línea
 class RegistroForm(UserCreationForm):
     # Cambia los nombres de los campos
     username = forms.CharField(label=_("Nombre de usuario"))
+    email = forms.CharField(label=_("Correo electrónico"))
     password1 = forms.CharField(label=_("Contraseña"), widget=forms.PasswordInput)
     password2 = forms.CharField(label=_("Confirmar contraseña"), widget=forms.PasswordInput)
 
@@ -32,7 +33,7 @@ class TareaForm(ModelForm):
 class AlumnoForm(forms.ModelForm):
     class Meta:
         model = Alumno
-        fields = ['nombre', 'edad']
+        fields = ['nombre', 'apellido', 'edad','identificacion', 'diagnostico']
 
 class ProfesorForm(forms.ModelForm):
     class Meta:

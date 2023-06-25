@@ -1,21 +1,23 @@
-{% extends "layouts/base.html" %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eloquista</title>
+    
+  </head>
+  <body>
+    <h2>Registra los datos del alumno</h2>
+    <p>Los datos siguientes nos sirven para poder corroborar la información dada. Eloquista no puede proporcionar test para evaluar el nivel de TEA de cada persona. Sus datos se validarán de manera manual, y se le notificará a través del correo electrónico proporcionado.</p>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Guardar</button>
+    </form>
 
-{% block content %}
+  </body>
+</html>
 
-<h2>Agregar Alumnos</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form }}
-  <button type="submit">Guardar</button>
-</form>
 
-<h2>Registro de alumnos</h2>
-<ul>
-  {% for alumno in alumnos %}
-    <li>{{ alumno.nombre }} - {{ alumno.edad }}</li>
-  {% empty %}
-    <li>No hay registros.</li>
-  {% endfor %}
-</ul>
 
-{% endblock %}

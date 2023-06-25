@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 class usuario(AbstractUser):
@@ -19,7 +20,10 @@ class Tarea(models.Model):
 class Alumno(models.Model):
     usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100)
-    edad = models.IntegerField()
+    apellido = models.CharField(max_length=100)
+    edad = models.IntegerField(validators=[MinValueValidator(12), MaxValueValidator(100)])
+    identificacion = models.FileField(upload_to='users/', default='default.pdf')
+    diagnostico = models.FileField(upload_to='users/', default='default.pdf')
 
     def __str__(self):
         return self.nombre

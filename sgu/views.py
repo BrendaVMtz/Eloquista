@@ -15,8 +15,9 @@ def registrar(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
+            user = authenticate(username=username, password=password, email=email)
             login(request, user)
             return redirect('sel_perfil')
     else:
@@ -75,16 +76,18 @@ def agregar_tarea(request):
 @login_required
 def registro_alumno(request):
     if request.method == 'POST':
-        form = AlumnoForm(request.POST)
+        form = AlumnoForm(request.POST, request.FILES)
         if form.is_valid():
             alumno = form.save(commit=False)
             alumno.usuario = request.user
+            alumno.identificacion = request.FILES['identificacion']
+            alumno.diagnostico = request.FILES['diagnostico']
             alumno.save()
-            return redirect('registro_alumno')
+            return redirect('home')
     else:
         form = AlumnoForm()
-    alumnos = Alumno.objects.filter(usuario=request.user)  # Agrega esta línea
-    return render(request, 'registro_alumno.html', {'form': form, 'alumnos': alumnos})  # Agrega 'tareas' en el contexto
+    alumnos = Alumno.objects.filter(usuario=request.user)  
+    return render(request, 'registro_alumno.html', {'form': form, 'alumnos': alumnos}) 
 
 @login_required
 def registro_profesor(request):
