@@ -1,10 +1,23 @@
-{% for calificacion in calificaciones %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lección {{ examen.id }}</title>
+</head>
+<body>
+  <h1>¡Completaste la lección!</h1>
+  {% if calificaciones %}
   <div class="calificacion">
-    <h3>Calificación: {{ calificacion.calificacion }}</h3>
-    <p>Examen: {{ calificacion.examen }}</p>
+    <h3>Calificación: {{ calificaciones.0.calificacion }}</h3>
+    <p>Examen: {{ calificaciones.0.examen.nombre }}</p>
+    <button><a href="/home">Continuar</a></button>
     <!-- Otros detalles de la calificación -->
   </div>
-{% empty %}
-  <p>No hay calificaciones disponibles.</p>
-{% endfor %}
+  {% else %}
+    <p>No hay calificaciones disponibles.</p>
+  {% endif %}
+</body>
+</html>
+
+
+
 

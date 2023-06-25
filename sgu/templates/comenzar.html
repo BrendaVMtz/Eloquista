@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eloquista</title>
+    
+  </head>
+  <body>
+    {% if alumno %}
+      <h1>Bienvenido {{ alumno.nombre }}</h1>
+      <h2>¿Listo para comenzar?</h2>
+      <button><a href="/leccion/leccion/1">¡Todo listo!</a></button>
+    {% else %}
+      <p>No se encontró ningún alumno</p>
+      <button><a href="/registro_alumno">Registra un alumno</a></button>
+    {% endif %}
+  </body>
+</html>

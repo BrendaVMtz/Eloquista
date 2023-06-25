@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db import IntegrityError
-from .models import Examen, Pregunta, Opcion, RespuestaUsuario, Calificacion
+from .models import Leccion, Pregunta, Opcion, RespuestaUsuario, Calificacion
 
-def examen(request, examen_id):
-    examen = Examen.objects.get(id=examen_id)
+def leccion(request, examen_id):
+    examen = get_object_or_404(Leccion, id=examen_id)
     usuario = request.user
 
     if request.method == 'POST':
@@ -16,7 +16,7 @@ def examen(request, examen_id):
             opcion_seleccionada = request.POST.get(f'opcion_{pregunta.id}')
 
             if opcion_seleccionada:
-                opcion = Opcion.objects.get(id=opcion_seleccionada)
+                opcion = get_object_or_404(Opcion, id=opcion_seleccionada)
                 respuesta_usuario = RespuestaUsuario(usuario=usuario, pregunta=pregunta, opcion=opcion)
                 respuesta_usuario.save()
 
@@ -40,21 +40,24 @@ def examen(request, examen_id):
 
     preguntas = Pregunta.objects.filter(examen=examen)
     opciones = Opcion.objects.filter(pregunta__in=preguntas)
+    numero = Leccion.objects.get(id=examen_id)
     context = {
         'examen': examen,
         'preguntas': preguntas,
-        'opciones': opciones
+        'opciones': opciones,
+        'numero': numero
     }
     return render(request, 'examen.html', context)
 
 def resultado(request):
     usuario = request.user
-    calificaciones = Calificacion.objects.filter(usuario=usuario)
+    calificaciones = Calificacion.objects.filter(usuario=usuario).order_by('-fecha_creacion')[:1]
 
     context = {
         'calificaciones': calificaciones
     }
     return render(request, 'resultado.html', context)
+
 
 
 # from django.shortcuts import render

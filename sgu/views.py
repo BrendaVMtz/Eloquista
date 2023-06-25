@@ -83,11 +83,16 @@ def registro_alumno(request):
             alumno.identificacion = request.FILES['identificacion']
             alumno.diagnostico = request.FILES['diagnostico']
             alumno.save()
-            return redirect('home')
+            return redirect('comenzar')
     else:
         form = AlumnoForm()
     alumnos = Alumno.objects.filter(usuario=request.user)  
     return render(request, 'registro_alumno.html', {'form': form, 'alumnos': alumnos}) 
+
+@login_required
+def comenzar(request):
+    alumno = Alumno.objects.filter(usuario=request.user).first() 
+    return render(request, 'comenzar.html', {'alumno': alumno}) 
 
 @login_required
 def registro_profesor(request):

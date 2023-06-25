@@ -32,11 +32,11 @@ urlpatterns = [
     path('sel_perfil/', views.sel_perfil, name='sel_perfil'),
     path('registro_profesor/', views.registro_profesor, name='registro_profesor'),
     path('registro_alumno', views.registro_alumno, name='registro_alumno'),
-    path('examen/', include('sgl.urls'), name = 'examen'),
+    path('leccion/', include('sgl.urls'), name = 'leccion'),
     path('resultado/', include('sgl.urls'), name = 'resultado'),
     path('registro_padre/', views.registro_padre, name='registro_padre'),
     path('registro_salud/', views.registro_salud, name='registro_salud'),
-    # path('aprender/', include('sgl.urls'))
+    path('comenzar/', views.comenzar, name='comenzar')
 ]
 
 

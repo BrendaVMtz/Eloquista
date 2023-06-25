@@ -1,7 +1,7 @@
 from django.db import models
 from sgu.models import usuario
 
-class Examen(models.Model):
+class Leccion(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
 
@@ -9,7 +9,7 @@ class Examen(models.Model):
         return self.nombre
     
 class Pregunta(models.Model):
-    examen = models.ForeignKey(Examen, on_delete=models.CASCADE)
+    examen = models.ForeignKey(Leccion, on_delete=models.CASCADE)
     pregunta = models.TextField()
     
     def __str__(self):
@@ -33,8 +33,9 @@ class RespuestaUsuario(models.Model):
 
 class Calificacion(models.Model):
     usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
-    examen = models.ForeignKey(Examen, on_delete=models.CASCADE)
+    examen = models.ForeignKey(Leccion, on_delete=models.CASCADE)
     calificacion = models.IntegerField()
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.usuario.username} - {self.calificacion}"
