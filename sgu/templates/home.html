@@ -1,21 +1,24 @@
 {% extends "layouts/base.html" %}
 
 {% block content %}
+<div class="container">
+  <h1>Hola {{ alumno.nombre }}</h1>
 
-<h2>Agregar Tarea</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form }}
-  <button type="submit">Guardar Tarea</button>
-</form>
-
-<h2>Tareas</h2>
-<ul>
-  {% for tarea in tareas %}
-    <li>{{ tarea.nombre }} - {{ tarea.descripcion }}</li>
-  {% empty %}
-    <li>No hay tareas.</li>
+  <h2>Lecciones Disponibles</h2>
+  {% for leccion, completada, calificacion in lecciones_completadas %}
+  <div class="leccion">
+    <h3>{{ leccion.nombre }}</h3>
+    {% if completada %}
+    <p>Estado: Completada</p>
+    <p>Calificación: {{ calificacion }}</p>
+    {% else %}
+    <p>Estado: Pendiente</p>
+    {% endif %}
+    <a href="/leccion/leccion/{{ leccion.id }}">Acceder a la lección</a>
+  </div>
   {% endfor %}
-</ul>
+</div>
+  
+
 
 {% endblock %}

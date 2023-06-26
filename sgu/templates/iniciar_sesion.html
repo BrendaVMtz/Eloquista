@@ -5,15 +5,34 @@
       <p>
         {{error}}
         </p>
-        
+        <div class="decorative-circle"></div>
+  <div class="decorative-circle-2"></div>
+  <div class="decorative-triangle"></div>
+  <div class="decorative-triangle-left"></div>
+  <div class="decorative-triangle-right"></div>
+
+  <nav>
+    <div class="container">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+        </ul>
+      </div>
+    </div>
         <form method="post">
           {% csrf_token %}
-          {{ form.username.label_tag }} {{ form.username }}<br>
-          {{ form.password.label_tag }} {{ form.password }}<br>
+          <label for="id_username">Username:</label>
+          {{ form.username }}
+          <label for="id_password">Password:</label>
+          {{ form.password }}<br>
           <button type="submit">Iniciar sesión</button>
         </form>
 
-  <div>
-    <a href="/registro" >¿No tienes cuenta?</a>
-  </div>
+        <div class="register-link">
+          <a href="/registrar">¿No tienes cuenta?</a>
+        </div>
+        <div class="decorative-shapes">
+          <div class="shape shape-circle"></div>
+          <div class="shape shape-square"></div>
+          <div class="shape shape-triangle"></div>
+        </div>
   {% endblock %}

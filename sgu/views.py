@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Tarea, usuario, Alumno, Profesor, Padre, Salud
+from sgl.models import Leccion, Calificacion
 from django.shortcuts import render, redirect
 from .forms import RegistroForm, TareaForm, AlumnoForm, ProfesorForm, ParentForm, DoctorForm
 
@@ -41,7 +42,22 @@ def iniciar_sesion(request):
 
 def home(request):
     if request.user.is_authenticated:
-        return render(request, 'home.html')
+        lecciones = Leccion.objects.all()
+        usuario = request.user
+        calificaciones = Calificacion.objects.filter(usuario=usuario)
+        alumno = Alumno.objects.filter(usuario=usuario).first()
+
+        lecciones_completadas = []
+        for leccion in lecciones:
+            completada = calificaciones.filter(examen=leccion).exists()
+            calificacion = calificaciones.filter(examen=leccion).first().calificacion if completada else None
+            lecciones_completadas.append((leccion, completada, calificacion))
+
+        context = {
+            'lecciones_completadas': lecciones_completadas,
+            'alumno': alumno
+        }
+        return render(request, 'home.html', context)
     else:
         return redirect("/")
     

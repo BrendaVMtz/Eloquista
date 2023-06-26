@@ -1,14 +1,114 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eloquista</title>
-    
-  </head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            position: relative;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #880e4f;
+            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #ff6f00;
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #9c27b0;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff4081;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .figure {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .figure-1 {
+            top: 20%;
+            left: 10%;
+            background-color: #fbc02d;
+        }
+
+        .figure-2 {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #9c27b0;
+        }
+
+        .figure-3 {
+            top: 80%;
+            right: 10%;
+            background-color: #ff6f00;
+        }
+
+        .figure-4 {
+            top: 40%;
+            right: 25%;
+            background-color: #fbc02d;
+        }
+
+        .figure-5 {
+            top: 60%;
+            left: 25%;
+            background-color: #9c27b0;
+        }
+
+        .figure-6 {
+            bottom: 40%;
+            right: 35%;
+            background-color: #ff6f00;
+        }
+    </style>
+</head>
   <body>
-    {% if alumno %}
+    <div class="container">
+      {% if alumno %}
       <h1>Bienvenido {{ alumno.nombre }}</h1>
       <h2>¿Listo para comenzar?</h2>
       <button><a href="/leccion/leccion/1">¡Todo listo!</a></button>
@@ -16,5 +116,13 @@
       <p>No se encontró ningún alumno</p>
       <button><a href="/registro_alumno">Registra un alumno</a></button>
     {% endif %}
+    </div>
+    <div class="figure figure-1"></div>
+    <div class="figure figure-2"></div>
+    <div class="figure figure-3"></div>
+    <div class="figure figure-4"></div>
+    <div class="figure figure-5"></div>
+    <div class="figure figure-6"></div>
+
   </body>
 </html>
